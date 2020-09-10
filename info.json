@@ -1,0 +1,9 @@
+{
+    "name": "UntitledMod",
+    "version": "0.0.1",
+    "title": "TODO",
+    "author": "TODO",
+    "factorio_version": "1.0",
+    "dependencies": ["base >= 1.0"],
+    "description": "TODO"
+  }
