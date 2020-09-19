@@ -27,7 +27,7 @@ data:extend{
             1.5
           }
         },
-        collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile"},
+        collision_mask = { "object-layer", "player-layer", "water-tile"},
         picture = {
           filename = "__inlinefurnace__/graphics/entities/furnace.png",
           frame_count = 1,

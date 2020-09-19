@@ -69,9 +69,10 @@ script.on_event(defines.events.on_tick, function(event)
                     local line = furnace.input.get_transport_line(i)
                     local contents = line.get_contents()
                     line.clear()
-                    for item, count in pairs(contents.items) do
+                    for item, count in pairs(contents) do
                         if furnace.contents.items[item] then
                             furnace.contents.items[item] = furnace.contents.items[item] + count
+                            furnace.contents.current = furnace.contents.current + count
                         else
                             furnace.contents.items[item] = count
                         end
@@ -88,16 +89,19 @@ script.on_event(defines.events.on_tick, function(event)
                         local stop = false
                         for name, recipe in pairs(k.force.recipes) do
                             if stop == true then break end
-                            for _, ingr in pairs(recipe.ingredients) do
-                                if ingr.name == item then
-                                    new = recipe.products[1]
-                                    stop = true
-                                    break
+                            if recipe.category == "smelting" then
+                                for i = 1, #recipe.ingredients do
+                                    if recipe.ingredients[i].name == item then
+                                        new = recipe.products[1]
+                                        stop = true
+                                        break
+                                    end
                                 end
                             end
                         end
-                        if line.insert_at(10, item) then
-                            furnace.contents.items[item] = count - 1
+                        if line.insert_at(1, new) then
+                            furnace.contents.items[new] = count - 1
+                            furnace.contents.current = furnace.contents.current - 1
                         end
                     end
                 end
